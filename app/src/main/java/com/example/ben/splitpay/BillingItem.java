@@ -11,8 +11,10 @@ public class BillingItem {
     public Double splitBetween(int amount){
         if (amount <= 0){
             // TODO: throw an exception here
+            return(0.0);
         }
-        return price/(1.0*amount);
+        Double d_amount = (double) amount;
+        return price/d_amount;
     }
 
     public void updatePrice(Double newPrice){
