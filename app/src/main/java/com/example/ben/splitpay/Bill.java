@@ -13,6 +13,7 @@ public class Bill {
     public void addBillingItem(BillingItem item){
         if (!this.billingItems.containsKey(item)){
             this.billingItems.put(item, 0);
+
         }
 
     }
