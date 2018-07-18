@@ -11,28 +11,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Bill> bills;
     Button createNewBill;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bills = new ArrayList<>();
 
         createNewBill = findViewById(R.id.createNewBill);
         createNewBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("msg", "this is a msg");
-                bills.add(new Bill());
                 openCreateBill();
             }
         });
 
-//        Person p = new Person("Ben", "Arbib", new Accounts());
-//        BillingItem b = new BillingItem("Apple", 30.0);
-//        Bill bill = new Bill();
-//        System.out.println("Hello Shalom");
     }
 
     public void openCreateBill(){

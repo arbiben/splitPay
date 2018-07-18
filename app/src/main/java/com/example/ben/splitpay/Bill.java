@@ -1,7 +1,8 @@
 package com.example.ben.splitpay;
+import java.io.Serializable;
 import java.util.*;
 
-public class Bill {
+public class Bill implements Serializable{
     HashMap<String, ArrayList<BillingItem>> billingItems;
     HashSet<Person> participatingParties;
     Double totalPrice;
