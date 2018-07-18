@@ -1,5 +1,6 @@
 package com.example.ben.splitpay;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,19 +12,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<Bill> bills;
+    Button createNewBill;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bills = new ArrayList<>();
 
-        Button createNewBill = findViewById(R.id.createNewBill);
+        createNewBill = findViewById(R.id.createNewBill);
         createNewBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("msg", "this is a msg");
                 bills.add(new Bill());
-
+                openCreateBill();
             }
         });
 
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
 //        BillingItem b = new BillingItem("Apple", 30.0);
 //        Bill bill = new Bill();
 //        System.out.println("Hello Shalom");
+    }
+
+    public void openCreateBill(){
+        Intent intent = new Intent(this, createBill.class);
+        startActivity(intent);
     }
 }
 
