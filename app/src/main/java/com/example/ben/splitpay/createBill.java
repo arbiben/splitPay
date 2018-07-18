@@ -1,11 +1,11 @@
 package com.example.ben.splitpay;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import Billing.Bill;
 
 public class createBill extends AppCompatActivity {
     ArrayList<Bill> bills;

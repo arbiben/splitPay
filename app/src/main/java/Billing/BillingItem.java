@@ -1,4 +1,4 @@
-package com.example.ben.splitpay;
+package Billing;
 
 public class BillingItem {
     double price;

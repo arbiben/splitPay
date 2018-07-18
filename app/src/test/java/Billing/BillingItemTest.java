@@ -1,7 +1,9 @@
-package com.example.ben.splitpay;
+package Billing;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import Billing.BillingItem;
 
 import static org.junit.Assert.*;
 
