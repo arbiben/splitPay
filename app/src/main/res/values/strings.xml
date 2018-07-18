@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">splitPay</string>
+    <string name="title_activity_add_items">addItems</string>
 </resources>
