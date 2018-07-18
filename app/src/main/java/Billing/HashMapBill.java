@@ -4,30 +4,45 @@ import com.example.ben.splitpay.Person;
 import java.util.*;
 
 public class HashMapBill implements Bill {
-    HashMap<String, ArrayList<BillingItem>> billingItems;
-    HashSet<Person> participatingParties;
-    Double totalPrice;
+    // Indexed by <Name, Item>
+    private HashMap<String, ArrayList<BillingItem>> billingItems;
+    private double tipAmount;
+    private double totalPrice;
 
     public HashMapBill() {
         billingItems = new HashMap<>();
-        participatingParties = new HashSet<>();
     }
 
-    public void addBillingItem(BillingItem item) {
-        if (!this.billingItems.containsKey(item.itemName)) {
-            this.billingItems.put(item.itemName, new ArrayList<BillingItem>());
+    @Override
+    public void addItem(String name, double price) {
+        BillingItem newBillingItem = new BillingItem(name, price);
+        addBillingItem(name, newBillingItem);
+        totalPrice += price;
+    }
+
+    private void addBillingItem(String name, BillingItem item) {
+        if (billingItems.containsKey(name)) {
+            billingItems.get(name).add(item);
         }
-        ArrayList<BillingItem> temp = this.billingItems.get(item.itemName);
-        temp.add(item);
-        this.totalPrice += item.price;
+        else {
+            ArrayList<BillingItem> newBillingItemArray = new ArrayList<>();
+            newBillingItemArray.add(item);
+            billingItems.put(name, newBillingItemArray);
+        }
     }
 
-    public void removeBilligItem(BillingItem item) {
-        if (this.billingItems.containsKey(item.itemName)) {
-            ArrayList<BillingItem> temp = this.billingItems.get(item.itemName);
-            if (temp.size() == 1) {
-                this.billingItems.remove(item.itemName);
-            } else temp.remove(0);
+    @Override
+    public void removeItem() {
+
+    }
+
+    @Override
+    public void addMultipleItems(ArrayList<String> names, ArrayList<Double> prices) {
+        if (names.size() != prices.size()) {
+            throw new IndexOutOfBoundsException("Names and prices don't match up!");
+        }
+        for (int i=0; i<names.size(); i++) {
+            addItem(names.get(i), prices.get(i));
         }
     }
 }
