@@ -1,16 +1,20 @@
 package Billing;
-import com.example.ben.splitpay.Person;
 
 import java.util.*;
 
-public class HashMapBill implements Bill {
+public class BillHashMap implements Bill {
     // Indexed by <Name, Item>
     private HashMap<String, ArrayList<BillingItem>> billingItems;
     private double tipAmount;
     private double totalPrice;
 
-    public HashMapBill() {
+    public BillHashMap() {
         billingItems = new HashMap<>();
+    }
+
+    @Override
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
     @Override

@@ -9,6 +9,14 @@ public class BillingItem {
         this.itemName = item;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     public double getPrice() {
         return price;
     }

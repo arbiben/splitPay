@@ -6,6 +6,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import Billing.Bill;
+import Billing.BillHashMap;
 
 public class createBill extends AppCompatActivity {
     ArrayList<Bill> bills;
@@ -15,7 +16,7 @@ public class createBill extends AppCompatActivity {
         setContentView(R.layout.activity_create_bill);
         // #TODO - retrieve bill array from memory (currently creating a new arraylist)
         bills = new ArrayList<>();
-        bills.add(new Bill());
+        bills.add(new BillHashMap());
 
 
 //        Person p = new Person("Ben", "Arbib", new Accounts());
