@@ -1,23 +1,30 @@
 package com.example.ben.splitpay;
 
 public class BillingItem {
-    Double price;
+    double price;
     String itemName;
-    public BillingItem(String item, Double price){
+
+    public BillingItem(String item, double price){
         this.price = price;
         this.itemName = item;
     }
 
-    public Double splitBetween(int amount){
-        if (amount <= 0){
-            // TODO: throw an exception here
-            return(0.0);
-        }
-        Double d_amount = (double) amount;
-        return price/d_amount;
+    public double getPrice() {
+        return price;
     }
 
-    public void updatePrice(Double newPrice){
-        this.price = newPrice;
+    public void setPrice(double newPrice){
+        price = roundToTwoDecimals(newPrice);
+    }
+
+    public double splitBetween(int amount){
+        if (amount <= 0){
+            throw new IndexOutOfBoundsException("Amount is " + amount + "!");
+        }
+        return roundToTwoDecimals(price/amount);
+    }
+
+    private double roundToTwoDecimals(double number) {
+        return Math.round(number*100.0)/100.0;
     }
 }
