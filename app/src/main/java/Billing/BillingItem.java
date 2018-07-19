@@ -1,10 +1,10 @@
 package Billing;
 
 public class BillingItem {
-    double price;
-    String itemName;
+    private double price;
+    private String itemName;
 
-    public BillingItem(String item, double price){
+    BillingItem(String item, double price){
         this.price = price;
         this.itemName = item;
     }

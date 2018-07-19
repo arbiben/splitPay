@@ -2,13 +2,10 @@ package com.example.ben.splitpay;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
->>>>>>> d3ac1cd9a503a520ce5ef21bc55376065cbdcd48
 
 import java.util.ArrayList;
 
