@@ -82,12 +82,14 @@ public class inputBillingItems extends AppCompatActivity {
     }
 
     public void onDelete(View view) {
-        TextView n = view.findViewById(R.id.single_name);
-        TextView p = view.findViewById(R.id.single_price);
-        String s = n.getText().toString();
-        Log.d(TAG, "----------------------------------------===========================------------------ s   "+s);
-        ValueHolder valueHolder = new ValueHolder(n, p);
-        removeValuesFromArray(valueHolder);
+        Log.d(TAG, "print         "+view);
+
+//        TextView n = view.findViewById(R.id.single_name);
+//        TextView p = view.findViewById(R.id.single_price);
+//        String s = n.getText().toString();
+        //Log.d(TAG, "----------------------------------------===========================------------------ s   "+s);
+        //ValueHolder valueHolder = new ValueHolder(n, p);
+        //removeValuesFromArray(valueHolder);
         parentLinearLayout.removeView((View) view.getParent());
     }
 
