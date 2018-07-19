@@ -1,104 +1,60 @@
 package com.example.ben.splitpay;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class inputBillingItems extends AppCompatActivity {
     private static final String TAG = "InputBillingItem";
-    private TextView item_price;
-    private TextView item_name;
-    private ListView listView;
-    private ArrayList<String> arr = new ArrayList<>();
+    private LinearLayout parentLinearLayout;
+    private Button btn;
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<Double> prices = new ArrayList<>();
+    private static int items = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        private Button addAction;
-        setContentView(R.layout.activity_input_billing_items);
-        Log.d(TAG,"onCreate");
-        item_name = findViewById(R.id.item_name);
-        item_price = findViewById(R.id.item_price);
-        addAction = findViewById(R.id.add);
-        listView = findViewById(R.id.listView);
-        listView.setAdapter(new MyListAdapter(this,R.layout.list_item, arr));
-
-        addAction.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.first_input);
+        parentLinearLayout = findViewById(R.id.parent_linear_layout);
+        btn = findViewById(R.id.add_field_button);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = item_name.getText().toString();
-                double price = Double.parseDouble(item_price.getText().toString());
-                addBillingItem(name, price, listView);
+                TextView item_name = findViewById(R.id.single_name);
+                TextView item_price = findViewById(R.id.single_price);
+                String name;
+                double price;
+                try {
+                    price = Double.parseDouble(item_price.getText().toString());
+                    name = item_name.getText().toString();
+                    if (name.equals("")) throw new NumberFormatException();
+                    onAddField(view, name, price);
+                } catch (NumberFormatException ignore) {
+                    Toast.makeText(getBaseContext(), "PLEASE INSERT VALID INPUTS", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
 
-    private void addBillingItem(String name, double price, ListView listView){
-        Log.d(TAG, "addBillingItem Clicked");
-
-        arr.add();
+    public void onAddField(View v, String name, double price){
+        items++;
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.new_item, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
     }
 
-    private class MyListAdapter extends ArrayAdapter<String>{
-        private int layout;
-        public MyListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
-            super(context, resource, objects);
-            layout = resource;
-
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            ViewHolder viewHolder = null;
-
-            if (convertView == null){
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(layout, parent, false);
-                viewHolder = new ViewHolder();
-                viewHolder.item_name = convertView.findViewById(R.id.single_name);
-                viewHolder.item_price = convertView.findViewById(R.id.single_price);
-                viewHolder.button = convertView.findViewById(R.id.remove);
-                convertView.setTag(viewHolder);
-            }else{
-                viewHolder = (ViewHolder) convertView.getTag();
-                viewHolder.item_name.setText(getItem(position));
-                viewHolder.item_price.setText(getItem(position));
-            }
-
-            viewHolder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getContext(), "REMOVE WILL OCCUR HERE", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            return convertView;
-        }
-
+    public void onDelete(View v) {
+        items--;
+        parentLinearLayout.removeView((View) v.getParent());
     }
-    public class ViewHolder{
-        TextView item_name;
-        TextView item_price;
-        Button button;
-    }
-
 }
