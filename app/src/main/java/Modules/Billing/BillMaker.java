@@ -1,4 +1,4 @@
-package Billing;
+package Modules.Billing;
 
 public class BillMaker {
     public Bill createBill() {

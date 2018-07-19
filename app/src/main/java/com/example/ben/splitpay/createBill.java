@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Billing.Bill;
-import Billing.BillHashMap;
+import Modules.Billing.Bill;
+import Modules.Billing.BillHashMap;
 
 public class createBill extends AppCompatActivity {
     ArrayList<Bill> bills;

@@ -1,6 +1,6 @@
-package Billing;
+package Modules.Billing;
 
-public class BillingItem {
+class BillingItem {
     private double price;
     private String itemName;
 

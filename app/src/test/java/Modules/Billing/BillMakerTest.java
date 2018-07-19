@@ -1,19 +1,19 @@
-package Billing;
+package Modules.Billing;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class BillHashMapTest {
+public class BillMakerTest {
     Bill bill;
 
     @Before
     public void setUp() throws Exception {
-        bill = new BillHashMap();
+        BillMaker billMaker = new BillMaker();
+        bill = billMaker.createBill();
     }
 
     @Test

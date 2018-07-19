@@ -1,4 +1,4 @@
-package Billing;
+package Modules.Billing;
 
 import java.util.ArrayList;
 

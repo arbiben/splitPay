@@ -1,9 +1,7 @@
-package Billing;
+package Modules.Billing;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import Billing.BillingItem;
 
 import static org.junit.Assert.*;
 
