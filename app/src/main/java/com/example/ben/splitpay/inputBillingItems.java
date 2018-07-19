@@ -24,7 +24,6 @@ import java.util.List;
 
 public class inputBillingItems extends AppCompatActivity {
     private static final String TAG = "InputBillingItem";
-    private Button addAction;
     private TextView item_price;
     private TextView item_name;
     private ListView listView;
@@ -32,6 +31,7 @@ public class inputBillingItems extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        private Button addAction;
         setContentView(R.layout.activity_input_billing_items);
         Log.d(TAG,"onCreate");
         item_name = findViewById(R.id.item_name);
