@@ -2,10 +2,14 @@ package com.example.ben.splitpay;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -13,19 +17,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<BillingItem> billingItems;
 
-    public RecyclerViewAdapter(ArrayList<BillingItem> billingItems) {
-        this.billingItems = billingItems;
+    public RecyclerViewAdapter() {
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return null;
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_list_items, viewGroup, false);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        Log.d(TAG, "in onBindViewHolder method.");
+        Glide.
     }
 
     @Override
