@@ -48,7 +48,6 @@ public class inputBillingItems extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "PLEASE INSERT AN ITEM NAME", Toast.LENGTH_SHORT).show();
                 } catch (DuplicateFormatFlagsException msg){
                     Toast.makeText(getBaseContext(), "The item exists with a different price, please edit and try again", Toast.LENGTH_LONG).show();
-
                 }
 
             }
