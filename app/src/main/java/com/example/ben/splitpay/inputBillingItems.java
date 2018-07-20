@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,17 +54,12 @@ public class inputBillingItems extends AppCompatActivity {
     private void addValuesToArray(ValueHolder valueHolder){
         names.add(valueHolder.name);
         prices.add(valueHolder.price);
-        Log.d(TAG, "\n\n\n\n\n\nArray: "+names.toString());
-        //Log.d(TAG, "\n\n\n\n\n\nArray: "+prices.toString());
     }
 
-    private void removeValuesFromArray(ValueHolder valueHolder){
-        Log.d(TAG, "------------------------------------------------->>>>>>>>>>>>>>>>>>>>>removing: "+valueHolder.name);
-        int i = names.indexOf(valueHolder.name);
+    private void removeValuesFromArray(String name){
+        int i = names.indexOf(name);
         names.remove(i);
         prices.remove(i);
-        Log.d(TAG, "Array: "+names.toString());
-        Log.d(TAG, "Array: "+prices.toString());
     }
 
     private void restartFields(ValueHolder valueHolder){
@@ -82,14 +80,10 @@ public class inputBillingItems extends AppCompatActivity {
     }
 
     public void onDelete(View view) {
-        Log.d(TAG, "print         "+view);
-
-//        TextView n = view.findViewById(R.id.single_name);
-//        TextView p = view.findViewById(R.id.single_price);
-//        String s = n.getText().toString();
-        //Log.d(TAG, "----------------------------------------===========================------------------ s   "+s);
-        //ValueHolder valueHolder = new ValueHolder(n, p);
-        //removeValuesFromArray(valueHolder);
+        ViewGroup row = (ViewGroup) view.getParent();
+        TextView item_name = row.findViewById(R.id.single_name);
+        String name = item_name.getText().toString();
+        removeValuesFromArray(name);
         parentLinearLayout.removeView((View) view.getParent());
     }
 
