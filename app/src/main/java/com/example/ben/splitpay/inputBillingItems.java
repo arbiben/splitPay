@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.DuplicateFormatFlagsException;
 
 public class inputBillingItems extends AppCompatActivity {
     private static final String TAG = "InputBillingItem";
@@ -45,6 +46,9 @@ public class inputBillingItems extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A VALID NUMBER", Toast.LENGTH_SHORT).show();
                 } catch (NullPointerException ignore){
                     Toast.makeText(getBaseContext(), "PLEASE INSERT AN ITEM NAME", Toast.LENGTH_SHORT).show();
+                } catch (DuplicateFormatFlagsException msg){
+                    Toast.makeText(getBaseContext(), "The item exists with a different price, please edit and try again", Toast.LENGTH_LONG).show();
+
                 }
 
             }
@@ -52,6 +56,13 @@ public class inputBillingItems extends AppCompatActivity {
     }
 
     private void addValuesToArray(ValueHolder valueHolder){
+        if (names.contains(valueHolder.name)){
+            int i = names.indexOf(valueHolder.name);
+            if (valueHolder.price != prices.get(i)){
+                double this_price;
+                throw new DuplicateFormatFlagsException("The item " + valueHolder.name + " is in the bill with a different price");
+            }
+        }
         names.add(valueHolder.name);
         prices.add(valueHolder.price);
     }
