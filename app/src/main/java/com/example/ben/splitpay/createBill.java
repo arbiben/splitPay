@@ -1,14 +1,15 @@
 package com.example.ben.splitpay;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import Modules.Billing.Bill;
+import Modules.Billing.BillHashMap;
 
 public class createBill extends AppCompatActivity {
     ArrayList<Bill> bills;
@@ -22,7 +23,7 @@ public class createBill extends AppCompatActivity {
         setContentView(R.layout.activity_create_bill);
         // #TODO - retrieve bill array from memory (currently creating a new arraylist)
         bills = new ArrayList<>();
-        bills.add(new Bill());
+        bills.add(new BillHashMap());
         Log.d(TAG, "in createBill activity");
         initRecyclerView();
     }
