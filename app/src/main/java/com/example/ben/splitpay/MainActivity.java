@@ -28,16 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openCreateBill(){
-        Intent intent = new Intent(this, createBill.class);
+        Intent intent = new Intent(this, inputBillingItems.class);
         startActivity(intent);
     }
 }
-
-
-/*
-    // get EditText by id and store it into "inputTxt"
-    EditText inputTxt = (EditText) findViewById(R.id.input);
-
-// Store EditText - Input in variable
-
-    String typedText = inputTxt.getText().toString();*/

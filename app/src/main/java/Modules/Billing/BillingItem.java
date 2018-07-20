@@ -1,12 +1,20 @@
-package com.example.ben.splitpay;
+package Modules.Billing;
 
-public class BillingItem {
-    double price;
-    String itemName;
+class BillingItem {
+    private double price;
+    private String itemName;
 
-    public BillingItem(String item, double price){
+    BillingItem(String item, double price){
         this.price = price;
         this.itemName = item;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public double getPrice() {

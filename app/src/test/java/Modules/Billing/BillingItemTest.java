@@ -1,4 +1,4 @@
-package com.example.ben.splitpay;
+package Modules.Billing;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,6 @@ public class BillingItemTest {
     @Before
     public void setUp() throws Exception {
         billingItem = new BillingItem("apples", 20.00);
-        billingItem.setPrice(20.00);
     }
 
     @Test
