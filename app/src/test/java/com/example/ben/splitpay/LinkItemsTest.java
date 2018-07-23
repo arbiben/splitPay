@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class LinkItemsTest {
@@ -31,5 +34,15 @@ public class LinkItemsTest {
         assertEquals(personID, 4);
         personID = linkItems.getPersonLinkedToBillingItem(1);
         assertEquals(personID, 1);
+        Integer j = linkItems.getPersonLinkedToBillingItem(34);
+        assertEquals(j, null);
+        ArrayList<Integer> person1 = linkItems.getBillinItemsLinkedToPerson(1);
+        ArrayList<Integer> person2 = linkItems.getBillinItemsLinkedToPerson(2);
+        ArrayList<Integer> person3 = linkItems.getBillinItemsLinkedToPerson(3);
+        ArrayList<Integer> person4 = linkItems.getBillinItemsLinkedToPerson(4);
+        System.out.println(person1);
+        System.out.println(person2);
+        System.out.println(person3);
+        System.out.println(person4);
     }
 }
