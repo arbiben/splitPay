@@ -58,7 +58,6 @@ public class inputBillingItems extends AppCompatActivity {
         if (names.contains(valueHolder.name)){
             int i = names.indexOf(valueHolder.name);
             if (valueHolder.price != prices.get(i)){
-                double this_price;
                 throw new DuplicateFormatFlagsException("The item " + valueHolder.name + " is in the bill with a different price");
             }
         }
