@@ -25,5 +25,11 @@ public class LinkItemsTest {
         linkItems.linkItems(4, 4);
         int personID = linkItems.getPersonLinkedToBillingItem(12);
         assertEquals(personID, 2);
+        personID = linkItems.getPersonLinkedToBillingItem(6);
+        assertEquals(personID, 3);
+        personID = linkItems.getPersonLinkedToBillingItem(4);
+        assertEquals(personID, 4);
+        personID = linkItems.getPersonLinkedToBillingItem(1);
+        assertEquals(personID, 1);
     }
 }
