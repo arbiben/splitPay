@@ -42,6 +42,9 @@ public class inputBillingItems extends AppCompatActivity {
                     addValuesToArray(valueHolder);
                     restartFields(valueHolder);
                     onAddField(view, valueHolder);
+                    if (names.size() == 1){
+                        addNextButton();
+                    }
                 } catch (NumberFormatException ignore) {
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A VALID NUMBER", Toast.LENGTH_SHORT).show();
                 } catch (NullPointerException ignore){
@@ -52,6 +55,14 @@ public class inputBillingItems extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void addNextButton(){
+
+    }
+
+    private void removeNextButton(){
+
     }
 
     private void addValuesToArray(ValueHolder valueHolder){
@@ -94,6 +105,9 @@ public class inputBillingItems extends AppCompatActivity {
         String name = item_name.getText().toString();
         removeValuesFromArray(name);
         parentLinearLayout.removeView((View) view.getParent());
+        if (names.size() == 0){
+            removeNextButton();
+        }
     }
 
     public class ValueHolder{
