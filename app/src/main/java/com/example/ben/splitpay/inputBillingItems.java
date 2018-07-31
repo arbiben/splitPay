@@ -1,6 +1,7 @@
 package com.example.ben.splitpay;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class inputBillingItems extends AppCompatActivity {
     private static final String TAG = "InputBillingItem";
     private LinearLayout parentLinearLayout;
     private Button btn;
+    private Button next_page;
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Double> prices = new ArrayList<>();
 
@@ -30,6 +32,7 @@ public class inputBillingItems extends AppCompatActivity {
         setContentView(R.layout.first_input);
         parentLinearLayout = findViewById(R.id.parent_linear_layout);
         btn = findViewById(R.id.add_field_button);
+        next_page = findViewById(R.id.next_btn);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,9 +45,6 @@ public class inputBillingItems extends AppCompatActivity {
                     addValuesToArray(valueHolder);
                     restartFields(valueHolder);
                     onAddField(view, valueHolder);
-                    if (names.size() == 1){
-                        addNextButton();
-                    }
                 } catch (NumberFormatException ignore) {
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A VALID NUMBER", Toast.LENGTH_SHORT).show();
                 } catch (NullPointerException ignore){
@@ -58,11 +58,44 @@ public class inputBillingItems extends AppCompatActivity {
     }
 
     private void addNextButton(){
-
+        next_page.setVisibility(View.VISIBLE);
     }
 
     private void removeNextButton(){
+        next_page.setVisibility(View.GONE);
+    }
 
+    public void onAddField(View v,ValueHolder valueHolder){
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.after_input, null);
+
+        TextView n = rowView.findViewById(R.id.single_name);
+        TextView p = rowView.findViewById(R.id.single_price);
+        ValueHolder newValue = new ValueHolder(n, p);
+        newValue.setText(valueHolder);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+        if (names.size() == 1){
+            addNextButton();
+        }
+    }
+
+    public void onDelete(View view) {
+        ViewGroup row = (ViewGroup) view.getParent();
+        TextView item_name = row.findViewById(R.id.single_name);
+        String name = item_name.getText().toString();
+        removeValuesFromArray(name);
+        parentLinearLayout.removeView((View) view.getParent());
+        if (names.size() == 0){
+            removeNextButton();
+        }
+    }
+
+    public void goToNextPage(){
+        Intent input_people = new Intent(this, inputPeople.class);
+        input_people.putExtra("billingNames", names);
+        input_people.putExtra("billingPrices", prices);
+        startActivity(input_people);
     }
 
     private void addValuesToArray(ValueHolder valueHolder){
@@ -85,29 +118,6 @@ public class inputBillingItems extends AppCompatActivity {
     private void restartFields(ValueHolder valueHolder){
         valueHolder.item_name.setText("");
         valueHolder.item_price.setText("");
-    }
-
-    public void onAddField(View v,ValueHolder valueHolder){
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.after_input, null);
-
-        TextView n = rowView.findViewById(R.id.single_name);
-        TextView p = rowView.findViewById(R.id.single_price);
-        ValueHolder newValue = new ValueHolder(n, p);
-        newValue.setText(valueHolder);
-        // Add the new row before the add field button.
-        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
-    }
-
-    public void onDelete(View view) {
-        ViewGroup row = (ViewGroup) view.getParent();
-        TextView item_name = row.findViewById(R.id.single_name);
-        String name = item_name.getText().toString();
-        removeValuesFromArray(name);
-        parentLinearLayout.removeView((View) view.getParent());
-        if (names.size() == 0){
-            removeNextButton();
-        }
     }
 
     public class ValueHolder{
