@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class inputPeople extends AppCompatActivity {
+    private static final String TAG = "INPUT PEOPLE";
     private LinearLayout parentLinearLayout;
     private ArrayList<String> billingItems;
     private ArrayList<Double> prices;
@@ -41,11 +43,13 @@ public class inputPeople extends AppCompatActivity {
                 try {
                     verifyInput(name);
                     addValueToArray(name);
+                    onAddField(name);
                     restartField(person);
-                    onAddField(view, name);
                 } catch (NullPointerException ignore){
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A NAME", Toast.LENGTH_SHORT).show();
                 }
+                Log.d(TAG, "inserted a name to the array");
+
             }
         });
 
@@ -57,10 +61,10 @@ public class inputPeople extends AppCompatActivity {
         });
     }
 
-    private void onAddField(View view, String name){
+    private void onAddField(String name){
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.after_input_person, null);
-        TextView p = rowView.findViewById(R.id.person);
+        TextView p = rowView.findViewById(R.id.person_name);
         p.setText(name);
 
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
@@ -102,9 +106,8 @@ public class inputPeople extends AppCompatActivity {
     }
 
     private void verifyInput(String name){
-        if (name.equals("")){
+        if (name.equals(""))
             throw new NullPointerException ("error");
-        }
     }
 
     private void addValueToArray(String name){
@@ -114,6 +117,4 @@ public class inputPeople extends AppCompatActivity {
     private void restartField(TextView person){
         person.setText("");
     }
-
-
 }
