@@ -81,7 +81,7 @@ public class inputPeople extends AppCompatActivity {
     }
 
     private void goToNextPage(){
-        Intent intent = new Intent(this, next_class.class);
+        Intent intent = new Intent(this, link_people_to_bill.class);
         intent.putExtra("billingItemNames", billingItems);
         intent.putExtra("prices", prices);
         intent.putExtra("people", people);

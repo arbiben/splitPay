@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".inputBillingItems" />
-        <activity android:name=".inputPeople"></activity>
+        <activity android:name=".inputPeople" />
+        <activity android:name=".link_people_to_bill"></activity>
     </application>
 
 </manifest>
