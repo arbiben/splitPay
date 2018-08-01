@@ -91,7 +91,7 @@ public class inputBillingItems extends AppCompatActivity {
         }
     }
 
-    public void goToNextPage(){
+    public void goToNextPage(View view){
         Intent input_people = new Intent(this, inputPeople.class);
         input_people.putExtra("billingNames", names);
         input_people.putExtra("billingPrices", prices);
