@@ -4,14 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +64,7 @@ public class inputBillingItems extends AppCompatActivity {
 
     public void onAddField(View v,ValueHolder valueHolder){
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.after_input, null);
+        final View rowView = inflater.inflate(R.layout.show_item_and_price_after_input, null);
 
         TextView n = rowView.findViewById(R.id.single_name);
         TextView p = rowView.findViewById(R.id.single_price);
