@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:onClick="onAddField"
             android:textColor="#FFF"
-            android:text="Add Field"
+            android:text="Add Item"
             android:paddingLeft="5dp"/>
 
         <Button
@@ -67,7 +67,7 @@
             android:textColor="#FFF"
             android:background="#555"
             android:onClick="goToNextPage"
-            android:text="NEXT"
+            android:text="next"
             android:visibility="gone"/>
     </LinearLayout>
 
