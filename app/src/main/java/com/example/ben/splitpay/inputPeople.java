@@ -17,5 +17,7 @@ public class inputPeople extends AppCompatActivity {
         names = bundle.getStringArrayList("billingNames");
         prices = (ArrayList<Double>) getIntent().getSerializableExtra("billingPrices");
 
+
+
     }
 }
