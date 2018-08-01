@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parent_linear_layout"
+    android:id="@+id/parent_linear_layout_people"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
@@ -38,9 +38,9 @@
             android:layout_marginRight="5dp"
             android:background="#555"
             android:layout_gravity="center"
-            android:onClick="onAddField"
+            android:onClick="addPerson"
             android:textColor="#FFF"
-            android:text="Add Field"
+            android:text="add person"
             android:paddingLeft="5dp"/>
 
         <Button
@@ -54,7 +54,6 @@
             android:layout_alignParentTop="true"
             android:textColor="#FFF"
             android:background="#555"
-            android:onClick="goToNextPage"
             android:text="NEXT"
             android:visibility="gone"/>
     </LinearLayout>
