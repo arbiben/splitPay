@@ -63,7 +63,7 @@ public class inputPeople extends AppCompatActivity {
 
     private void onAddField(String name){
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.after_input_person, null);
+        final View rowView = inflater.inflate(R.layout.show_person_after_input, null);
         TextView p = rowView.findViewById(R.id.person_name);
         p.setText(name);
 

@@ -26,7 +26,7 @@ public class inputBillingItems extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.first_input);
+        setContentView(R.layout.input_billing_items);
         parentLinearLayout = findViewById(R.id.parent_linear_layout);
         btn = findViewById(R.id.add_field_button);
         next_page = findViewById(R.id.next_btn);
