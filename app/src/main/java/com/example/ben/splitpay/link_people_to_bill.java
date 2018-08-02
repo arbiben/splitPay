@@ -27,12 +27,15 @@ public class link_people_to_bill extends AppCompatActivity {
         prices = (ArrayList<Double>) getIntent().getSerializableExtra("prices");
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.person_for_list,
                 people);
+
         Log.d(TAG, "in populate people list list is "+ people);
         people_listView.setAdapter(arrayAdapter);
+
         //populatePeopleList();
         //populateBillingItemsList();
     }
