@@ -3,9 +3,11 @@ package com.example.ben.splitpay;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import java.util.ArrayList;
 
 public class link_people_to_bill extends AppCompatActivity {
@@ -15,6 +17,10 @@ public class link_people_to_bill extends AppCompatActivity {
     private ArrayList<Double> prices;
     private ListView people_listView;
     private ListView bill_listView;
+    private ArrayList<BillingItem> bItems;
+    private ArrayAdapter<String> peopleAdapter;
+    private BillingItemListAdapter billingAdapter;
+    private String assignee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,36 +31,50 @@ public class link_people_to_bill extends AppCompatActivity {
         people = bundle.getStringArrayList("people");
         billingItems = bundle.getStringArrayList("billingItemNames");
         prices = (ArrayList<Double>) getIntent().getSerializableExtra("prices");
+        bItems = new ArrayList<>();
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
+        assignee = "";
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.person_for_list,
-                people);
+        people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                view.setSelected(true);
+                TextView person = view.findViewById(R.id.person_name);
+                assignee = person.getText().toString();
+            }
+        });
 
-        Log.d(TAG, "in populate people list list is "+ people);
-        people_listView.setAdapter(arrayAdapter);
+        bill_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView assignedTo = view.findViewById(R.id.person_assigned);
+                assignedTo.setText(assignee);
+            }
+        });
 
+        createBillingObjects();
         populatePeopleList();
-        //populateBillingItemsList();
+        populateBillingItemsList();
     }
 
-    private void populatePeopleList(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+    private void populatePeopleList() {
+        peopleAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.person_for_list,
                 R.id.person_name,
                 people);
-        Log.d(TAG, "in populate people list list is "+ people);
-        people_listView.setAdapter(arrayAdapter);
+        people_listView.setAdapter(peopleAdapter);
+    }
+
+    private void createBillingObjects(){
+        for (int i=0; i<prices.size(); i++){
+            bItems.add(new BillingItem(billingItems.get(i), prices.get(i)));
+        }
     }
 
     private void populateBillingItemsList(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.billing_item_and_price_for_list);
-
-        bill_listView.setAdapter(arrayAdapter);
+        billingAdapter = new BillingItemListAdapter(this, R.layout.billing_item_and_price_for_list, bItems);
+        bill_listView.setAdapter(billingAdapter);
     }
 }
