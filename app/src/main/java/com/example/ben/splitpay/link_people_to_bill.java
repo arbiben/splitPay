@@ -39,15 +39,13 @@ public class link_people_to_bill extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.person_for_list,
+                R.id.person_name,
                 people);
-
-        Log.d(TAG, "in populate people list list is "+ people);
         people_listView.setAdapter(arrayAdapter);
     }
 
     private void createBillingObjects(){
-        billingItems = new ArrayList<>();
-        for (int i=0; i<people.size(); i++){
+        for (int i=0; i<prices.size(); i++){
             bItems.add(new BillingItem(billingItems.get(i), prices.get(i)));
         }
     }

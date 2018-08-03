@@ -90,6 +90,7 @@ public class inputPeople extends AppCompatActivity {
         intent.putExtra("billingItemNames", billingItems);
         intent.putExtra("prices", prices);
         intent.putExtra("people", people);
+        Log.d(TAG, "SENDING INFO TO LINK PAGE FROM INPUT PEOPLE -- BILLING ITEMS ARE: "+ billingItems);
         startActivity(intent);
     }
 
