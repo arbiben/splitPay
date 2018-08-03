@@ -3,8 +3,12 @@ package com.example.ben.splitpay;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,9 @@ public class link_people_to_bill extends AppCompatActivity {
     private ListView people_listView;
     private ListView bill_listView;
     private ArrayList<BillingItem> bItems;
+    private ArrayAdapter<String> peopleAdapter;
+    private BillingItemListAdapter billingAdapter;
+    //private int prevChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,21 @@ public class link_people_to_bill extends AppCompatActivity {
         bItems = new ArrayList<>();
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
+        //prevChoice = -1;
+
+        people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                view.setSelected(true);
+            }
+        });
+
+        bill_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "SOMETHING WAS TAPPED!");
+            }
+        });
 
         createBillingObjects();
         populatePeopleList();
@@ -36,12 +58,12 @@ public class link_people_to_bill extends AppCompatActivity {
     }
 
     private void populatePeopleList() {
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+        peopleAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.person_for_list,
                 R.id.person_name,
                 people);
-        people_listView.setAdapter(arrayAdapter);
+        people_listView.setAdapter(peopleAdapter);
     }
 
     private void createBillingObjects(){
@@ -51,7 +73,7 @@ public class link_people_to_bill extends AppCompatActivity {
     }
 
     private void populateBillingItemsList(){
-        BillingItemListAdapter adapter = new BillingItemListAdapter(this, R.layout.billing_item_and_price_for_list, bItems);
-        bill_listView.setAdapter(adapter);
+        billingAdapter = new BillingItemListAdapter(this, R.layout.billing_item_and_price_for_list, bItems);
+        bill_listView.setAdapter(billingAdapter);
     }
 }

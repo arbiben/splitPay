@@ -18,7 +18,7 @@
         android:padding="15dp"
         android:textColor="#ffffff"
         android:textSize="25dp"
-        android:layout_weight="50"
+        android:layout_weight="40"
         />
 
     <TextView
@@ -29,7 +29,15 @@
         android:layout_height="wrap_content"
         android:text="PRICE"
         android:textSize="25dp"
-        android:layout_weight="50"
+        android:layout_weight="40"
         android:textColor="#ffffff"
         />
+
+    <TextView
+        android:id="@+id/person_assigned"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"/>
 </LinearLayout>
