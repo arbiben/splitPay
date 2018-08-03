@@ -36,7 +36,7 @@ public class link_people_to_bill extends AppCompatActivity {
         Log.d(TAG, "in populate people list list is "+ people);
         people_listView.setAdapter(arrayAdapter);
 
-        //populatePeopleList();
+        populatePeopleList();
         //populateBillingItemsList();
     }
 
