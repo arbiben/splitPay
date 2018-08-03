@@ -41,4 +41,5 @@
         android:layout_height="wrap_content"
         android:textColor="#f5b041"
         android:layout_weight="20"/>
+
 </LinearLayout>
