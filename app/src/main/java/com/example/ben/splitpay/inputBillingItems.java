@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
+import java.util.HashMap;
+
+import Modules.Billing.Bill;
 
 public class inputBillingItems extends AppCompatActivity {
     private static final String TAG = "InputBillingItem";
@@ -96,12 +99,6 @@ public class inputBillingItems extends AppCompatActivity {
     }
 
     private void addValuesToArray(ValueHolder valueHolder){
-        if (names.contains(valueHolder.name)){
-            int i = names.indexOf(valueHolder.name);
-            if (valueHolder.price != prices.get(i)){
-                throw new DuplicateFormatFlagsException("The item " + valueHolder.name + " is in the bill with a different price");
-            }
-        }
         names.add(valueHolder.name);
         prices.add(valueHolder.price);
     }

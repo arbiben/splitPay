@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class inputPeople extends AppCompatActivity {
     private static final String TAG = "INPUT PEOPLE";

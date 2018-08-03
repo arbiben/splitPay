@@ -15,6 +15,7 @@ public class link_people_to_bill extends AppCompatActivity {
     private ArrayList<Double> prices;
     private ListView people_listView;
     private ListView bill_listView;
+    private ArrayList<BillingItem> billingItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class link_people_to_bill extends AppCompatActivity {
         people = bundle.getStringArrayList("people");
         billingItems = bundle.getStringArrayList("billingItemNames");
         prices = (ArrayList<Double>) getIntent().getSerializableExtra("prices");
+        createBillingObjects();
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
 
@@ -38,6 +40,14 @@ public class link_people_to_bill extends AppCompatActivity {
 
         populatePeopleList();
         //populateBillingItemsList();
+    }
+
+    private void createBillingObjects(){
+        billingItems = new ArrayList<>();
+        for (int i=0; i<people.size(); i++){
+            billingItems.add(new BillingItem(billingItems.get(i), prices.get(i)));
+
+        }
     }
 
     private void populatePeopleList(){
