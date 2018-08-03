@@ -22,7 +22,7 @@ public class link_people_to_bill extends AppCompatActivity {
     private ArrayList<BillingItem> bItems;
     private ArrayAdapter<String> peopleAdapter;
     private BillingItemListAdapter billingAdapter;
-    //private int prevChoice;
+    private String asignee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +36,22 @@ public class link_people_to_bill extends AppCompatActivity {
         bItems = new ArrayList<>();
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
-        //prevChoice = -1;
+        asignee = "";
 
         people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 view.setSelected(true);
+                TextView person = view.findViewById(R.id.person_name);
+                asignee = person.getText().toString();
             }
         });
 
         bill_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "SOMETHING WAS TAPPED!");
+                TextView assignedTo = view.findViewById(R.id.person_assigned);
+                assignedTo.setText(asignee);
             }
         });
 
