@@ -32,7 +32,7 @@ public class link_people_to_bill extends AppCompatActivity {
 
         createBillingObjects();
         populatePeopleList();
-        //populateBillingItemsList();
+        populateBillingItemsList();
     }
 
     private void populatePeopleList() {
@@ -53,10 +53,7 @@ public class link_people_to_bill extends AppCompatActivity {
     }
 
     private void populateBillingItemsList(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.billing_item_and_price_for_list);
-
-        bill_listView.setAdapter(arrayAdapter);
+        BillingItemListAdapter adapter = new BillingItemListAdapter(this, R.layout.billing_item_and_price_for_list, bItems);
+        bill_listView.setAdapter(adapter);
     }
 }
