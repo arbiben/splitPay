@@ -6,10 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class link_people_to_bill extends AppCompatActivity {
@@ -22,7 +20,7 @@ public class link_people_to_bill extends AppCompatActivity {
     private ArrayList<BillingItem> bItems;
     private ArrayAdapter<String> peopleAdapter;
     private BillingItemListAdapter billingAdapter;
-    private String asignee;
+    private String assignee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +34,14 @@ public class link_people_to_bill extends AppCompatActivity {
         bItems = new ArrayList<>();
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
-        asignee = "";
+        assignee = "";
 
         people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 view.setSelected(true);
                 TextView person = view.findViewById(R.id.person_name);
-                asignee = person.getText().toString();
+                assignee = person.getText().toString();
             }
         });
 
@@ -51,7 +49,7 @@ public class link_people_to_bill extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView assignedTo = view.findViewById(R.id.person_assigned);
-                assignedTo.setText(asignee);
+                assignedTo.setText(assignee);
             }
         });
 
