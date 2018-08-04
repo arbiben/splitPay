@@ -23,9 +23,6 @@ public class inputBillingItems extends AppCompatActivity {
     private Button next_page;
     private HashMap<String, BillingItem> billingItems;
 
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<Double> prices = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +35,13 @@ public class inputBillingItems extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView name = findViewById(R.id.single_name);
-                TextView price = findViewById(R.id.single_price);
-                ValueHolder valueHolder = new ValueHolder(name, price);
+                ValueHolder valueHolder = createValueHolder(view);
                 try {
                     valueHolder.verifyInput();
-                    addValuesToArray(valueHolder);
                     addValuesToMap(valueHolder);
                     onAddField(view, valueHolder);
                     restartFields(valueHolder);
-                    name.requestFocus();
+                    valueHolder.item_name.requestFocus();
                 } catch (NumberFormatException ignore) {
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A VALID NUMBER", Toast.LENGTH_SHORT).show();
                 } catch (NullPointerException ignore){
@@ -75,9 +69,9 @@ public class inputBillingItems extends AppCompatActivity {
         TextView p = rowView.findViewById(R.id.single_price);
         ValueHolder newValue = new ValueHolder(n, p);
         newValue.setText(valueHolder);
-        // Add the new row before the add field button.
+
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
-        if (names.size() == 1){
+        if (billingItems.size() == 1){
             addNextButton();
         }
     }
@@ -85,9 +79,8 @@ public class inputBillingItems extends AppCompatActivity {
     public void onDelete(View view) {
         String name = getNameFromView(view);
         removeValueFromMap(name);
-        removeValuesFromArray(name);
         parentLinearLayout.removeView((View) view.getParent());
-        if (names.size() == 0){
+        if (billingItems.size() == 0){
             removeNextButton();
         }
     }
@@ -98,27 +91,20 @@ public class inputBillingItems extends AppCompatActivity {
         return item_name.getText().toString();
     }
 
+    private ValueHolder createValueHolder(View view){
+        TextView name = view.findViewById(R.id.single_name);
+        TextView price = view.findViewById(R.id.single_price);
+        return new ValueHolder(name, price);
+    }
+
     private void removeValueFromMap(String name){
         billingItems.remove(name);
     }
 
     public void goToNextPage(View view){
         Intent input_people = new Intent(this, inputPeople.class);
-        input_people.putExtra("billingNames", names);
-        input_people.putExtra("billingPrices", prices);
-        input_people.putExtra("billingMap", billingItems);
+        //TODO send Billingitems map
         startActivity(input_people);
-    }
-
-    private void addValuesToArray(ValueHolder valueHolder){
-        if (names.contains(valueHolder.name)){
-            int i = names.indexOf(valueHolder.name);
-            if (valueHolder.price != prices.get(i)){
-                throw new DuplicateFormatFlagsException("The item " + valueHolder.name + " is in the bill with a different price");
-            }
-        }
-        names.add(valueHolder.name);
-        prices.add(valueHolder.price);
     }
 
     private void addValuesToMap(ValueHolder vh){
@@ -139,12 +125,6 @@ public class inputBillingItems extends AppCompatActivity {
         }
 
         return name;
-    }
-
-    private void removeValuesFromArray(String name){
-        int i = names.indexOf(name);
-        names.remove(i);
-        prices.remove(i);
     }
 
     private void restartFields(ValueHolder valueHolder){
