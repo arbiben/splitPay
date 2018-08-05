@@ -8,10 +8,12 @@ import java.util.HashMap;
 public class Person implements Parcelable{
     private String name;
     private HashMap<String, BillingItem> billingMap;
+    private double total;
 
     public Person(String name){
         this.name = name;
         billingMap = new HashMap<>();
+        total = 0.0;
     }
 
     public Person(Parcel parcel){
@@ -27,8 +29,12 @@ public class Person implements Parcelable{
 
     public void addBillingItem(BillingItem billingItem){
         this.billingMap.put(billingItem.getName(), billingItem);
+        total += billingItem.getPrice();
     }
 
+    public double getTotal(){
+        return total;
+    }
     @Override
     public int describeContents() {
         return 0;
