@@ -37,7 +37,7 @@ public class inputBillingItems extends AppCompatActivity {
                 try {
                     valueHolder.verifyInput();
                     addValuesToMap(valueHolder);
-                    onAddField(view, valueHolder);
+                    onAddField(valueHolder);
                     restartFields(valueHolder);
                     valueHolder.item_name.requestFocus();
                 } catch (NumberFormatException ignore) {
@@ -60,7 +60,7 @@ public class inputBillingItems extends AppCompatActivity {
         next_page.setVisibility(View.GONE);
     }
 
-    public void onAddField(View v,ValueHolder valueHolder){
+    public void onAddField(ValueHolder valueHolder){
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.show_item_and_price_after_input, null);
         TextView n = rowView.findViewById(R.id.single_name);
@@ -100,9 +100,9 @@ public class inputBillingItems extends AppCompatActivity {
     }
 
     public void goToNextPage(View view){
-        Intent input_people = new Intent(this, inputPeople.class);
-        //TODO send Billingitems map
-        startActivity(input_people);
+        Intent intent = new Intent(this, inputPeople.class);
+        intent.putExtra("itemMap", billingItems);
+        startActivity(intent);
     }
 
     private void addValuesToMap(ValueHolder vh){
