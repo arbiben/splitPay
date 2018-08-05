@@ -31,7 +31,7 @@ public class BillingItemListAdapter extends ArrayAdapter<BillingItem> {
         convertView = inflater.inflate(mResource, parent, false);
         TextView item_name = (TextView) convertView.findViewById(R.id.item_name);
         TextView item_price = (TextView) convertView.findViewById(R.id.item_price);
-        TextView assignedTo = convertView.findViewById(R.id.assigned_to);
+        TextView assignedTo = convertView.findViewById(R.id.person_assigned);
 
         item_name.setText(name);
         item_price.setText(Double.toString(price));
