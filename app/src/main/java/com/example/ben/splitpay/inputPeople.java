@@ -79,7 +79,6 @@ public class inputPeople extends AppCompatActivity {
 
     private void goToNextPage(){
         Intent intent = new Intent(this, link_people_to_bill.class);
-        // TODO add people and billing items to intent
         intent.putExtra("peopleMap", people);
         intent.putExtra("itemMap", billingItemsMap);
         startActivity(intent);

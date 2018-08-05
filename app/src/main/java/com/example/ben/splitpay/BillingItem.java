@@ -6,23 +6,17 @@ import android.os.Parcelable;
 public class BillingItem implements Parcelable{
     private String name;
     private double price;
+    private String assignedTo;
 
     public BillingItem(String name, double price){
         this.name = name;
         this.price = price;
+        this.assignedTo = "";
     }
 
     public BillingItem(Parcel parcel){
         this.name = parcel.readString();
         this.price = parcel.readDouble();
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public double getPrice(){
-        return price;
     }
 
     @Override
@@ -47,4 +41,16 @@ public class BillingItem implements Parcelable{
             return new BillingItem[i];
         }
     };
+
+    public String getName(){
+        return name;
+    }
+
+    public double getPrice(){
+        return price;
+    }
+
+    public void setAssignedTo(String name){
+        this.assignedTo = name;
+    }
 }
