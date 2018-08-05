@@ -1,60 +1,30 @@
 package com.example.ben.splitpay;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-import java.util.HashMap;
-
-public class Person implements Parcelable{
+public class Person implements Serializable{
     private String name;
-    private HashMap<String, BillingItem> billingMap;
+    private ArrayList<BillingItem> billingList;
     private double total;
 
     public Person(String name){
+        super();
         this.name = name;
-        billingMap = new HashMap<>();
+        billingList = new ArrayList<>();
         total = 0.0;
-    }
-
-    public Person(Parcel parcel){
-        this.name = parcel.readString();
-        this.billingMap = (HashMap<String, BillingItem>) parcel.readSerializable();
     }
 
     public String getName(){ return this.name; }
 
-    public HashMap<String, BillingItem> getBillingMap() {
-        return billingMap;
+    public ArrayList<BillingItem> getBillingList() {
+        return billingList;
     }
 
     public void addBillingItem(BillingItem billingItem){
-        this.billingMap.put(billingItem.getName(), billingItem);
+        this.billingList.add(billingItem);
         total += billingItem.getPrice();
     }
 
-    public double getTotal(){
-        return total;
-    }
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeSerializable(billingMap);
-    }
-
-    public static final Creator<Person> CREATOR = new Creator<Person>() {
-        @Override
-        public Person createFromParcel(Parcel parcel) {
-            return new Person(parcel);
-        }
-
-        @Override
-        public Person[] newArray(int i) {
-            return new Person[i];
-        }
-    };
+    public double getTotal(){ return total; }
 }

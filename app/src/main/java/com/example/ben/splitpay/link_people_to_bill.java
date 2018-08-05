@@ -44,17 +44,6 @@ public class link_people_to_bill extends AppCompatActivity {
         setOnClickNextPage();
     }
 
-    private void setOnClickPeople(){
-        people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                view.setSelected(true);
-                TextView person = view.findViewById(R.id.person_name);
-                assignee = person.getText().toString();
-            }
-        });
-    }
-
     private void setOnClickNextPage(){
         next_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +51,18 @@ public class link_people_to_bill extends AppCompatActivity {
                 Intent intent = new Intent(link_people_to_bill.this, show_totals.class);
                 intent.putExtra("people", people);
                 assignItemsToPeople();
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setOnClickPeople(){
+        people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                view.setSelected(true);
+                TextView person = view.findViewById(R.id.person_name);
+                assignee = person.getText().toString();
             }
         });
     }
@@ -112,5 +113,4 @@ public class link_people_to_bill extends AppCompatActivity {
     private void addNextButton(){
         next_page.setVisibility(View.VISIBLE);
     }
-
 }
