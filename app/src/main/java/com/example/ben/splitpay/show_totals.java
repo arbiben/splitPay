@@ -13,5 +13,8 @@ public class show_totals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_totals);
         HashMap<String, Person> p = (HashMap<String, Person>) getIntent().getSerializableExtra("people");
+        for (Person person : p.values()){
+            Log.d(TAG, "in person here are items: --------------------------------------------------------->>> "+person.getBillingList());
+        }
     }
 }
