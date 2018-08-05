@@ -108,7 +108,23 @@ public class inputPeople extends AppCompatActivity {
     }
 
     private void addValueToMap(String name){
+        if (people.containsKey(name)){
+            name = handleDups(name);
+        }
         people.put(name, new Person(name));
+    }
+
+    private String handleDups(String name){
+        int i = 2;
+        name = name+"2";
+        int last = name.length()-1;
+
+        while (people.containsKey(name)){
+            i++;
+            name = name.substring(0, last) + Integer.toString(i);
+        }
+
+        return name;
     }
 
     private void restartField(TextView person){
