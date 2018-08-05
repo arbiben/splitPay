@@ -30,7 +30,7 @@ public class inputPeople extends AppCompatActivity {
         Button add_person = findViewById(R.id.add_field_button);
         next_page = findViewById(R.id.next_btn);
         people = new HashMap<>();
-        billingItemsMap = (HashMap<String, BillingItem>) getIntent().getParcelableExtra("itemMap");
+        billingItemsMap = (HashMap<String, BillingItem>) getIntent().getSerializableExtra("itemMap");
 
         add_person.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +39,8 @@ public class inputPeople extends AppCompatActivity {
                 String name = person.getText().toString();
                 try {
                     verifyInput(name);
-                    addValueToMap(name);
-                    onAddField(name);
+                    Person p = addValueToMap(name);
+                    onAddField(p.getName());
                     restartField(person);
                 } catch (NullPointerException ignore){
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A NAME", Toast.LENGTH_SHORT).show();
@@ -107,11 +107,12 @@ public class inputPeople extends AppCompatActivity {
             throw new NullPointerException ("error");
     }
 
-    private void addValueToMap(String name){
+    private Person addValueToMap(String name){
         if (people.containsKey(name)){
             name = handleDups(name);
         }
         people.put(name, new Person(name));
+        return people.get(name);
     }
 
     private String handleDups(String name){

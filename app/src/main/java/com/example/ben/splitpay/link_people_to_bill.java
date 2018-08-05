@@ -3,8 +3,12 @@ package com.example.ben.splitpay;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,18 +18,49 @@ public class link_people_to_bill extends AppCompatActivity {
     private HashMap<String, Person> people;
     private ListView people_listView;
     private ListView bill_listView;
+    private String assignee;
+    private BillingItemListAdapter billingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_people_to_bill);
-        people = getIntent().getParcelableExtra("peopleMap");
-        billingItems = getIntent().getParcelableExtra("itemMap");
+        people = (HashMap<String, Person>) getIntent().getSerializableExtra("peopleMap");
+        billingItems = (HashMap<String, BillingItem>) getIntent().getSerializableExtra("itemMap");
         people_listView = findViewById(R.id.list_of_people);
         bill_listView = findViewById(R.id.list_of_items);
+        assignee = "";
 
         populatePeopleList();
         populateBillingItemsList();
+        setOnClickPeople();
+        setOnClickBillingItems();
+
+    }
+
+    private void setOnClickPeople(){
+        people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                view.setSelected(true);
+                TextView person = view.findViewById(R.id.person_name);
+                assignee = person.getText().toString();
+            }
+        });
+    }
+
+    private void setOnClickBillingItems(){
+        bill_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TextView assignedTo = view.findViewById(R.id.person_assigned);
+                TextView itemName = view.findViewById(R.id.item_name);
+                BillingItem billingItem = billingItems.get(itemName.getText().toString());
+                billingItem.setAssignedTo(assignee);
+                //assignedTo.setText(assignee);
+                billingAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void populatePeopleList() {
@@ -40,65 +75,7 @@ public class link_people_to_bill extends AppCompatActivity {
 
     private void populateBillingItemsList(){
         ArrayList<BillingItem> billingItemsList = new ArrayList<>(billingItems.values());
-        BillingItemListAdapter billingAdapter = new BillingItemListAdapter(this, R.layout.billing_item_and_price_for_list, billingItemsList);
+        billingAdapter = new BillingItemListAdapter(this, R.layout.billing_item_and_price_for_list, billingItemsList);
         bill_listView.setAdapter(billingAdapter);
     }
-
-
 }
-
-/*
-
-public class link_people_to_bill extends AppCompatActivity {
-    static final String TAG = "LINK PEOPLE TO BILL";
-
-    private ListView people_listView;
-    private ListView bill_listView;
-    private ArrayList<BillingItem> bItems;
-    private ArrayAdapter<String> peopleAdapter;
-    private BillingItemListAdapter billingAdapter;
-    private String assignee;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_link_people_to_bill);
-
-        Bundle bundle = getIntent().getExtras();
-        people = bundle.getStringArrayList("people");
-        billingItems = bundle.getStringArrayList("billingItemNames");
-        prices = (ArrayList<Double>) getIntent().getSerializableExtra("prices");
-        bItems = new ArrayList<>();
-        people_listView = findViewById(R.id.list_of_people);
-        bill_listView = findViewById(R.id.list_of_items);
-        assignee = "";
-
-        people_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                view.setSelected(true);
-                TextView person = view.findViewById(R.id.person_name);
-                assignee = person.getText().toString();
-            }
-        });
-
-        bill_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView assignedTo = view.findViewById(R.id.person_assigned);
-                assignedTo.setText(assignee);
-            }
-        });
-
-        createBillingObjects();
-        populatePeopleList();
-        populateBillingItemsList();
-    }
-
-    private void createBillingObjects(){
-        for (int i=0; i<prices.size(); i++){
-            bItems.add(new BillingItem(billingItems.get(i), prices.get(i)));
-        }
-    }
-}
- */
