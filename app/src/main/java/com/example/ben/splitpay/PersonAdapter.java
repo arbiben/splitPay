@@ -14,18 +14,21 @@ import java.util.ArrayList;
 public class PersonAdapter extends ArrayAdapter<Person> {
     private Context mContext;
     private int mResource;
+    private double tip;
 
-    public PersonAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Person> objects) {
+    public PersonAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Person> objects, double tip) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
+        this.tip = tip;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        getItem(position).setTip(tip);
         String name = getItem(position).getName();
-        double total = getItem(position).getTotalWithTax();
+        double total = getItem(position).getTotalWithTip();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
