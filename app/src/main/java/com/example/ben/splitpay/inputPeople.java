@@ -12,15 +12,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class inputPeople extends AppCompatActivity {
     private static final String TAG = "INPUT PEOPLE";
     private LinearLayout parentLinearLayout;
-    private ArrayList<String> billingItems;
-    private ArrayList<Double> prices;
-    private ArrayList<String> people;
+    private HashMap<String, Person> people;
+    private HashMap<String, BillingItem> billingItemsMap;
     private Button next_page;
 
     @Override
@@ -28,13 +26,10 @@ public class inputPeople extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_people);
         parentLinearLayout = findViewById(R.id.parent_linear_layout_people);
-
         Button add_person = findViewById(R.id.add_field_button);
         next_page = findViewById(R.id.next_btn);
-        people = new ArrayList<>();
-        Bundle bundle = getIntent().getExtras();
-        billingItems = bundle.getStringArrayList("billingNames");
-        prices = (ArrayList<Double>) getIntent().getSerializableExtra("billingPrices");
+        people = new HashMap<>();
+        billingItemsMap = (HashMap<String, BillingItem>) getIntent().getSerializableExtra("itemMap");
 
         add_person.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +38,12 @@ public class inputPeople extends AppCompatActivity {
                 String name = person.getText().toString();
                 try {
                     verifyInput(name);
-                    addValueToArray(name);
-                    onAddField(name);
+                    Person p = addValueToMap(name);
+                    onAddField(p.getName());
                     restartField(person);
                 } catch (NullPointerException ignore){
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A NAME", Toast.LENGTH_SHORT).show();
                 }
-                Log.d(TAG, "inserted a name to the array");
-
             }
         });
 
@@ -75,10 +68,8 @@ public class inputPeople extends AppCompatActivity {
     }
 
     public void onDelete(View view) {
-        ViewGroup row = (ViewGroup) view.getParent();
-        TextView item_name = row.findViewById(R.id.single_name);
-        String name = item_name.getText().toString();
-        removeValueFromArray(name);
+        String name = getName(view);
+        removeValueFromMap(name);
         parentLinearLayout.removeView((View) view.getParent());
         if (people.size() == 0){
             removeNextButton();
@@ -87,16 +78,19 @@ public class inputPeople extends AppCompatActivity {
 
     private void goToNextPage(){
         Intent intent = new Intent(this, link_people_to_bill.class);
-        intent.putExtra("billingItemNames", billingItems);
-        intent.putExtra("prices", prices);
-        intent.putExtra("people", people);
-        Log.d(TAG, "SENDING INFO TO LINK PAGE FROM INPUT PEOPLE -- BILLING ITEMS ARE: "+ billingItems);
+        intent.putExtra("peopleMap", people);
+        intent.putExtra("itemMap", billingItemsMap);
         startActivity(intent);
     }
 
-    private void removeValueFromArray(String name){
-        int i = people.indexOf(name);
-        people.remove(i);
+    private String getName(View view){
+        ViewGroup row = (ViewGroup) view.getParent();
+        TextView item_name = row.findViewById(R.id.single_name);
+        return item_name.getText().toString();
+    }
+
+    private void removeValueFromMap(String name){
+        people.remove(name);
     }
 
     private void addNextButton(){
@@ -112,8 +106,25 @@ public class inputPeople extends AppCompatActivity {
             throw new NullPointerException ("error");
     }
 
-    private void addValueToArray(String name){
-        people.add(name);
+    private Person addValueToMap(String name){
+        if (people.containsKey(name)){
+            name = handleDups(name);
+        }
+        people.put(name, new Person(name));
+        return people.get(name);
+    }
+
+    private String handleDups(String name){
+        int i = 2;
+        name = name+"2";
+        int last = name.length()-1;
+
+        while (people.containsKey(name)){
+            i++;
+            name = name.substring(0, last) + Integer.toString(i);
+        }
+
+        return name;
     }
 
     private void restartField(TextView person){

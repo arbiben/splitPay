@@ -12,40 +12,34 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
 import java.util.HashMap;
-
-import Modules.Billing.Bill;
 
 public class inputBillingItems extends AppCompatActivity {
     private static final String TAG = "InputBillingItem";
     private LinearLayout parentLinearLayout;
-    private Button btn;
     private Button next_page;
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<Double> prices = new ArrayList<>();
+    private HashMap<String, BillingItem> billingItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input_billing_items);
         parentLinearLayout = findViewById(R.id.parent_linear_layout);
-        btn = findViewById(R.id.add_field_button);
+        Button addItem = findViewById(R.id.add_field_button);
         next_page = findViewById(R.id.next_btn);
+        billingItems = new HashMap<>();
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView name = findViewById(R.id.single_name);
-                TextView price = findViewById(R.id.single_price);
-                ValueHolder valueHolder = new ValueHolder(name, price);
+                ValueHolder valueHolder = createValueHolder();
                 try {
                     valueHolder.verifyInput();
-                    addValuesToArray(valueHolder);
+                    addValuesToMap(valueHolder);
+                    onAddField(valueHolder);
                     restartFields(valueHolder);
-                    onAddField(view, valueHolder);
+                    valueHolder.item_name.requestFocus();
                 } catch (NumberFormatException ignore) {
                     Toast.makeText(getBaseContext(), "PLEASE INSERT A VALID NUMBER", Toast.LENGTH_SHORT).show();
                 } catch (NullPointerException ignore){
@@ -66,48 +60,69 @@ public class inputBillingItems extends AppCompatActivity {
         next_page.setVisibility(View.GONE);
     }
 
-    public void onAddField(View v,ValueHolder valueHolder){
+    public void onAddField(ValueHolder valueHolder){
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.show_item_and_price_after_input, null);
-
         TextView n = rowView.findViewById(R.id.single_name);
         TextView p = rowView.findViewById(R.id.single_price);
         ValueHolder newValue = new ValueHolder(n, p);
         newValue.setText(valueHolder);
-        // Add the new row before the add field button.
+
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
-        if (names.size() == 1){
+        if (billingItems.size() == 1){
             addNextButton();
         }
     }
 
     public void onDelete(View view) {
-        ViewGroup row = (ViewGroup) view.getParent();
-        TextView item_name = row.findViewById(R.id.single_name);
-        String name = item_name.getText().toString();
-        removeValuesFromArray(name);
+        String name = getNameFromView(view);
+        removeValueFromMap(name);
         parentLinearLayout.removeView((View) view.getParent());
-        if (names.size() == 0){
+        if (billingItems.size() == 0){
             removeNextButton();
         }
     }
 
+    private String getNameFromView(View view){
+        ViewGroup row = (ViewGroup) view.getParent();
+        TextView item_name = row.findViewById(R.id.single_name);
+        return item_name.getText().toString();
+    }
+
+    private ValueHolder createValueHolder(){
+        TextView name = findViewById(R.id.single_name);
+        TextView price = findViewById(R.id.single_price);
+        return new ValueHolder(name, price);
+    }
+
+    private void removeValueFromMap(String name){
+        billingItems.remove(name);
+    }
+
     public void goToNextPage(View view){
-        Intent input_people = new Intent(this, inputPeople.class);
-        input_people.putExtra("billingNames", names);
-        input_people.putExtra("billingPrices", prices);
-        startActivity(input_people);
+        Intent intent = new Intent(this, inputPeople.class);
+        intent.putExtra("itemMap", billingItems);
+        startActivity(intent);
     }
 
-    private void addValuesToArray(ValueHolder valueHolder){
-        names.add(valueHolder.name);
-        prices.add(valueHolder.price);
+    private void addValuesToMap(ValueHolder vh){
+        if (billingItems.containsKey(vh.name)){
+            vh.name = handleDups(vh.name);
+        }
+        billingItems.put(vh.name, new BillingItem(vh.name, vh.price));
     }
 
-    private void removeValuesFromArray(String name){
-        int i = names.indexOf(name);
-        names.remove(i);
-        prices.remove(i);
+    private String handleDups(String name){
+        int i = 2;
+        name = name+"2";
+        int last = name.length()-1;
+
+        while (billingItems.containsKey(name)){
+            i++;
+            name = name.substring(0, last) + Integer.toString(i);
+        }
+
+        return name;
     }
 
     private void restartFields(ValueHolder valueHolder){

@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".inputBillingItems" />
         <activity android:name=".inputPeople" />
-        <activity android:name=".link_people_to_bill"></activity>
+        <activity android:name=".link_people_to_bill" />
+        <activity android:name=".show_totals"></activity>
     </application>
 
 </manifest>
