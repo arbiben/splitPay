@@ -50,6 +50,10 @@ public class BillingItem implements Parcelable{
         return price;
     }
 
+    public String getAssignedTo(){
+        return assignedTo;
+    }
+
     public void setAssignedTo(String name){
         this.assignedTo = name;
     }
