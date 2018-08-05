@@ -33,7 +33,7 @@ public class inputBillingItems extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ValueHolder valueHolder = createValueHolder(view);
+                ValueHolder valueHolder = createValueHolder();
                 try {
                     valueHolder.verifyInput();
                     addValuesToMap(valueHolder);
@@ -89,9 +89,9 @@ public class inputBillingItems extends AppCompatActivity {
         return item_name.getText().toString();
     }
 
-    private ValueHolder createValueHolder(View view){
-        TextView name = view.findViewById(R.id.single_name);
-        TextView price = view.findViewById(R.id.single_price);
+    private ValueHolder createValueHolder(){
+        TextView name = findViewById(R.id.single_name);
+        TextView price = findViewById(R.id.single_price);
         return new ValueHolder(name, price);
     }
 
