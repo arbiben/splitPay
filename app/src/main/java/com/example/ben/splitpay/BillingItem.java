@@ -17,6 +17,7 @@ public class BillingItem implements Parcelable{
     public BillingItem(Parcel parcel){
         this.name = parcel.readString();
         this.price = parcel.readDouble();
+        this.assignedTo = parcel.readString();
     }
 
     @Override
@@ -28,6 +29,7 @@ public class BillingItem implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeDouble(price);
+        parcel.writeString(assignedTo);
     }
 
     public static final Creator<BillingItem> CREATOR= new Creator<BillingItem>() {
