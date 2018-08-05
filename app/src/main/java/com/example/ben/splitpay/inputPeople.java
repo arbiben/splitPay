@@ -30,8 +30,7 @@ public class inputPeople extends AppCompatActivity {
         Button add_person = findViewById(R.id.add_field_button);
         next_page = findViewById(R.id.next_btn);
         people = new HashMap<>();
-        // TODO import billing items from prev page (Hashmap of billing items)
-        //Bundle bundle = getIntent().getExtras();
+        billingItemsMap = (HashMap<String, BillingItem>) getIntent().getParcelableExtra("itemMap");
 
         add_person.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +80,8 @@ public class inputPeople extends AppCompatActivity {
     private void goToNextPage(){
         Intent intent = new Intent(this, link_people_to_bill.class);
         // TODO add people and billing items to intent
+        intent.putExtra("peopleMap", people);
+        intent.putExtra("itemMap", billingItemsMap);
         startActivity(intent);
     }
 
