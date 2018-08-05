@@ -27,4 +27,5 @@ public class Person implements Serializable{
     }
 
     public double getTotal(){ return total; }
+    public double getTotalWithTax(){ return total * 1.08875; }
 }
