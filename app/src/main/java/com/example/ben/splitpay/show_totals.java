@@ -65,7 +65,6 @@ public class show_totals extends AppCompatActivity {
         totalTax.setText(String.format("%.2f", tax));
         totalTip.setText(String.format("%.2f", this.totalTip));
         totalTotal.setText(String.format("%.2f", totalWithTip));
-        Log.d(TAG, "updated totals ============================================================================");
     }
 
     private void populatePeopleListView(){
@@ -75,9 +74,7 @@ public class show_totals extends AppCompatActivity {
     }
 
     private void updatePeopleListView(){
-        for(Person p: people_list){
-            p.setTip(tipPercent);
-        }
+        personAdapter.setTip(tipPercent);
         personAdapter.notifyDataSetChanged();
     }
 
@@ -96,8 +93,8 @@ public class show_totals extends AppCompatActivity {
                 else{
                     String tipString = adapterView.getItemAtPosition(i).toString();
                     tipString = tipString.replace("%", "");
-                    tipPercent = Double.parseDouble(tipString) / 100.0;
-                    totalTip *= totalWithTax * tipPercent;
+                    tipPercent = (double) (Double.parseDouble(tipString)/100.0);
+                    totalTip = totalWithTax * tipPercent;
                 }
                 totalWithTip = totalWithTax + totalTip;
 

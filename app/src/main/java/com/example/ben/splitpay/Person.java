@@ -14,7 +14,6 @@ public class Person implements Serializable{
         this.name = name;
         billingList = new ArrayList<>();
         total = 0.0;
-        tip = 1.0;
     }
 
     public String getName(){ return this.name; }
@@ -31,5 +30,4 @@ public class Person implements Serializable{
     public void setTip(double tip){ this.tip = 1 + tip; }
     public double getTotal(){ return total; }
     public double getTotalWithTax(){ return total * 1.08875; }
-    public double getTotalWithTip(){ return getTotalWithTax() * tip; }
 }
