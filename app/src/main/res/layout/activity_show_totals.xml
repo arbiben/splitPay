@@ -1,9 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:id="@+id/show_totals_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".show_totals">
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp">
 
-</android.support.constraint.ConstraintLayout>
+    <Spinner
+        android:id="@+id/tip_spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="PLACE HOLDER">
+    </Spinner>
+
+    <ListView
+        android:id="@+id/total_per_person"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#C25D48"
+        android:layout_height="250dp">
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/total_summery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#833A7B"
+        android:padding="15dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/subTotalLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SUBTOTAL"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/subTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUBTOTAL AMOUNT"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tax"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tax"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/totalTax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TAX AMOUNT"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tip"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tip"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/totalTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIP AMOUNT"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/total"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/totalTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOTAL"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

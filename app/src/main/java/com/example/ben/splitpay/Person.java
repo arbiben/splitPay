@@ -7,6 +7,7 @@ public class Person implements Serializable{
     private String name;
     private ArrayList<BillingItem> billingList;
     private double total;
+    private double tip;
 
     public Person(String name){
         super();
@@ -26,5 +27,7 @@ public class Person implements Serializable{
         total += billingItem.getPrice();
     }
 
+    public void setTip(double tip){ this.tip = 1 + tip; }
     public double getTotal(){ return total; }
+    public double getTotalWithTax(){ return total * 1.08875; }
 }
