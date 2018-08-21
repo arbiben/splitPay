@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openCreateBill(){
-        Intent intent = new Intent(this, inputBillingItems.class);
+        Intent intent = new Intent(this, pic_of_bill.class);
         startActivity(intent);
     }
 }

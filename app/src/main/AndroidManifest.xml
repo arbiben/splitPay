@@ -19,7 +19,14 @@
         <activity android:name=".inputBillingItems" />
         <activity android:name=".inputPeople" />
         <activity android:name=".link_people_to_bill" />
-        <activity android:name=".show_totals"></activity>
+        <activity android:name=".show_totals" />
+        <activity android:name=".pic_of_bill"></activity>
+
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+
+
 
 </manifest>
